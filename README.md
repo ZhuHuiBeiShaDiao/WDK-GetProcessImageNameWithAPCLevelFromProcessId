@@ -27,6 +27,11 @@ __deref_out_opt PVOID *CompletionContext
 			ExFreePoolWithTag(OutputName.Buffer, 0);
 		}
 	}
+	
+	.....................
+	.....................
+	
+	
 }
 
 NTSTATUS
