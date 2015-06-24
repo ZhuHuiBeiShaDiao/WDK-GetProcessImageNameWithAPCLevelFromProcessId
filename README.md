@@ -4,6 +4,8 @@ WDK-GetProcessImageNameWithAPCLevelFromProcessId
 Here's an example:
 
 ```
+#include "queryprocessname.h"
+
 FLT_PREOP_CALLBACK_STATUS
 SpyPreOperationCallback(
 __inout PFLT_CALLBACK_DATA Data,
@@ -40,7 +42,7 @@ __in PDRIVER_OBJECT DriverObject,
 __in PUNICODE_STRING RegistryPath
 )
 {
-	if (InitMiniFltLib() == FALSE)
+	if (InitGetProcessImageNameWithAPCLevel() == FALSE)
 	{
 		KdPrint(("InitMiniFltLib failed\n"));
 
