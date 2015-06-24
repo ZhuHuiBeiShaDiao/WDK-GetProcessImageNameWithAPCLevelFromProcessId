@@ -44,7 +44,7 @@ __in PUNICODE_STRING RegistryPath
 {
 	if (InitGetProcessImageNameWithAPCLevel() == FALSE)
 	{
-		KdPrint(("InitMiniFltLib failed\n"));
+		KdPrint(("Failed to InitGetProcessImageNameWithAPCLevel\n"));
 
 		return STATUS_UNSUCCESSFUL;
 	}
