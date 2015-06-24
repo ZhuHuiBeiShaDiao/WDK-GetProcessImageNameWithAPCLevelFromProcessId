@@ -3,8 +3,8 @@
 
 #define SYSTEM_PROCESS_NAME L"System"
 
-extern ULONG g_OSMajorVersion;
-extern ULONG g_OSMinorVersion;
+ULONG g_OSMajorVersion;
+ULONG g_OSMinorVersion;
 
 typedef NTSTATUS (*QUERY_INFO_PROCESS) (
     __in HANDLE ProcessHandle,
@@ -219,4 +219,22 @@ NTSTATUS GetProcessImageNameWithAPCLevel(PUNICODE_STRING OutputName)
 
 	status = GetProcessImageNameWithAPCLevelFromProcessId(OutputName, ProcessId);
 	return status;
+}
+
+BOOLEAN InitGetProcessImageNameWithAPCLevel()
+{
+	NTSTATUS ntStatus;
+	RTL_OSVERSIONINFOW OSVersionInfo;
+
+	OSVersionInfo.dwOSVersionInfoSize = sizeof(RTL_OSVERSIONINFOW);
+	ntStatus = RtlGetVersion(&OSVersionInfo);
+	if (NT_SUCCESS(ntStatus) == FALSE)
+	{
+		KdPrint(("RtlGetVersion failed\n"));
+
+		return FALSE;
+	}
+	g_OSMajorVersion = OSVersionInfo.dwMajorVersion;
+	g_OSMinorVersion = OSVersionInfo.dwMinorVersion;
+	KdPrint(("major : %u, minor: %u", g_OSMajorVersion, g_OSMinorVersion));
 }
